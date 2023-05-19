@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\GigEconomyCore.API.props" />
+</Project>

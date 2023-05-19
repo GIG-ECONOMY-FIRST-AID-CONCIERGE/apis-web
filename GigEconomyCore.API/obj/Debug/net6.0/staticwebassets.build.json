@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IkcYDZoa89kEa3TaHcjLmZJbiGt7du7pTE0tLxDMrZM=",
+  "Source": "GigEconomyCore.API",
+  "BasePath": "_content/GigEconomyCore.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
