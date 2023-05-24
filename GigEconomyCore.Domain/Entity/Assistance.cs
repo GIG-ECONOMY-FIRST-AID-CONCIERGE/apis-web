@@ -10,7 +10,7 @@ namespace GigEconomyCore.Domain.Entity
         public AssistanceType Type { get; set;}
         public string SinisterCircumstances { get; set; }
         public AssistanceStatus Status { get; set; }
-        public AssistanceRecords Records { get; set; }
-        public Sinister Sinister { get; set; }
+        /*public AssistanceRecords Records { get; set; }
+        public Sinister Sinister { get; set; }*/
     }
 }
