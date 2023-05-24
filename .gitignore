@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 #CUSTOM
 *.dll
+GigEconomyCore.Infra/obj/*
