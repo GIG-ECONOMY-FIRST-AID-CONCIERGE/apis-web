@@ -10,7 +10,7 @@ namespace GigEconomyCore.Domain.Model
         public string Type { get; set; }
         public string SinisterCircumstances { get; set; }
         public string Status { get; set; }
-        public T_ASSISTANCE_RECORDS AssistenceRecords { get; set; }
-        public T_SINISTER Sinister { get; set; }
+        /*public T_ASSISTANCE_RECORDS AssistenceRecords { get; set; }
+        public T_SINISTER Sinister { get; set; }*/
     }
 }
