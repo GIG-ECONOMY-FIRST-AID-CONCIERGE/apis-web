@@ -18,6 +18,9 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(build
 builder.Services.AddScoped<PartnerHandler>();
 builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 
+builder.Services.AddScoped<AssistanceHandler>();
+builder.Services.AddScoped<IAssistanceRepository, AssistanceRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

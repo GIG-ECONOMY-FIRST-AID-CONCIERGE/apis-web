@@ -12,7 +12,7 @@ namespace GigEconomyCore.Infra.Context
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            
+           
         }
 
         public DbSet<T_ADRESS> T_Address{ get; set; }
