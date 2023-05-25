@@ -39,7 +39,7 @@ namespace GigEconomyCore.Infra.Repository
             return _context.T_Accident.Where(p => p.Id == Id).FirstOrDefault();
         }
 
-        public List<T_ACCIDENT> GetAccidentByStatus(string status)
+        public List<T_ACCIDENT> GetAccidentByStatus(int status)
         {
             return _context.T_Accident.Where(p => p.Status == status).ToList();
         }

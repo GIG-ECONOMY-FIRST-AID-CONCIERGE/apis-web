@@ -2,8 +2,9 @@
 {
     public enum AssistanceType
     {
-        Guincho,
-        Rede,
-        Samu
+        Samu = 1,
+        Guincho = 2,
+        Rede = 3
+        
     }
 }

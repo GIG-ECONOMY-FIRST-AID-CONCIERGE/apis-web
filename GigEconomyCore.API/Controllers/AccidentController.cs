@@ -18,10 +18,10 @@ namespace GigEconomyCore.API.Controllers
             this.accidentHandler = _accidentHandler;
         }
 
-        [HttpPost("{accident}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
+        [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AccidentResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult PostAccident(Accident accident)
+        public IActionResult PostAccidentResponse(Accident accident)
         {
             var response = (GenericCommandResult)this.accidentHandler.HandlerAdd(accident);
 
@@ -34,7 +34,7 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
-        [HttpGet("{id}")]
+       /* [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAccidentById(int Id)
@@ -48,14 +48,14 @@ namespace GigEconomyCore.API.Controllers
                 return NoContent();
 
             return Ok(response.Data);
-        }
+        }*/
 
         [HttpGet("{status}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAccidentByStatus(string status)
+        public IActionResult GetAccidentByStatus(int status)
         {
-            var response = (GenericCommandResult)this.accidentHandler.Handler(status);
+            var response = (GenericCommandResult)this.accidentHandler.HandlerStatus(status);
 
             if (!response.Success)
                 return BadRequest(response);

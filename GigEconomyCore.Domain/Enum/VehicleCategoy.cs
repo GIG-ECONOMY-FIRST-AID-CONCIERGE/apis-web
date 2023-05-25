@@ -2,7 +2,7 @@
 {
     public enum VehicleCategoy
     {
-       Motorcycle,
-       Bicycle
+       Motorcycle = 1,
+       Bicycle = 2
     }
 }

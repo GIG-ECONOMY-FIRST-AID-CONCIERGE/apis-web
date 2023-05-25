@@ -13,33 +13,33 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Infra.Repository
 {
-    public class VehicloRepository : IVehicloRepository
+    public class VehicleRepository : IVehicleRepository
     {
         private readonly DataContext _context;
 
-        public VehicloRepository(DataContext _context)
+        public VehicleRepository(DataContext _context)
         {
             this._context = _context;
         }
 
-        public T_VEHICLE AddVehiclo(T_VEHICLE vehicle)
+        public T_VEHICLE AddVehicle(T_VEHICLE vehicle)
         {
             _context.T_Vehicle.Add(vehicle);
             _context.SaveChanges();
             return vehicle;
         }
 
-        public T_VEHICLE DeleteVehiclo(T_VEHICLE vehiclo)
+        public T_VEHICLE DeleteVehicle(T_VEHICLE vehicle)
         {
             throw new NotImplementedException();
         }
 
-        public T_VEHICLE GetVehicloById(int Id)
+        public T_VEHICLE GetVehicleById(int Id)
         {
             return _context.T_Vehicle.Where(p => p.Id == Id).FirstOrDefault();
         }
 
-        public T_VEHICLE UpdateVehiclo(T_VEHICLE vehiclo)
+        public T_VEHICLE UpdateVehicle(T_VEHICLE vehicle)
         {
             throw new NotImplementedException();
         }

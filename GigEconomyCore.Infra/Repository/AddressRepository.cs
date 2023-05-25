@@ -39,6 +39,11 @@ namespace GigEconomyCore.Infra.Repository
             return _context.T_Address.Where(p => p.Id == Id).FirstOrDefault();
         }
 
+        public T_ADDRESS GetAdressByPartnerId(int Id)
+        {
+            return _context.T_Address.Where(p => p.PartnerId == Id).FirstOrDefault();
+        }
+
         public T_ADDRESS UpdateAdress(T_ADDRESS adress)
         {
             throw new NotImplementedException();

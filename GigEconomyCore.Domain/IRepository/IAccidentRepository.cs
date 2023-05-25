@@ -11,7 +11,7 @@ namespace GigEconomyCore.Domain.IRepository
     {
         T_ACCIDENT GetAccidentById(int Id);
 
-        List<T_ACCIDENT> GetAccidentByStatus(string status);
+        List<T_ACCIDENT> GetAccidentByStatus(int status);
 
         T_ACCIDENT AddAccident(T_ACCIDENT accident);
 
