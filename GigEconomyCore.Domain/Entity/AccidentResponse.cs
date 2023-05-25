@@ -15,6 +15,9 @@ namespace GigEconomyCore.Domain.Entity
         public List<Assistance> Assistances { get; set; }
         public AccidentStatus Status { get; set; }
 
+        public DateTime OccurredDate { get; set; }
+        public bool RepliedNotification { get; set; }
+
         public AccidentResponse()
         {
             this.Assistances = new List<Assistance>();

@@ -13,7 +13,10 @@ namespace GigEconomyCore.Domain.Entity
         public Address Address { get; set; }
         public int PartnerId { get; set; }
         public List<Assistance> Assistances { get; set; }
-       
+
+        public bool RepliedNotification { get; set; }
+
+
         public Accident()
         {
             this.Assistances = new List<Assistance>();

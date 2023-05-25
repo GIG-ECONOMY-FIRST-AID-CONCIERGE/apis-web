@@ -8,6 +8,9 @@ namespace GigEconomyCore.Domain.Model
         public int AddressId { get; set; }
         public int PartnerId { get; set; }
         public int Status { get; set; }
-        
+        public DateTime OccurredDate { get; set; }
+        public bool RepliedNotification { get; set; }
+
+
     }
 }

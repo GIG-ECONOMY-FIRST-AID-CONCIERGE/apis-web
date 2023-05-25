@@ -35,12 +35,12 @@ namespace GigEconomyCore.Domain.Handler
             addressRepository = _addressRepository;
             vehicleRepository = _vehicleRepository;
         }
-        public ICommandResult Handler(int Id)
+        public ICommandResult Handler(int id)
         {
-            if (Id < 1)
+            if (id < 1)
                 return new GenericCommandResult(false, "Id informado é menor que o permitido", null);
 
-            var accident = accidentRepository.GetAccidentById(Id);
+            var accident = GetAccidente(id);
 
             if (accident == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
@@ -86,16 +86,30 @@ namespace GigEconomyCore.Domain.Handler
 
             foreach (T_ACCIDENT a in accident)
             {
-                AccidentResponse ac = new AccidentResponse();
-                ac.Id = a.Id;
-                ac.Address = parseAddress(addressRepository.GetAdressById(a.AddressId));
-                ac.Partner = parsePartner(partnerRepository.GetPartnerById(a.PartnerId));
-                ac.Assistances = parseAssistances(a);
-                ac.Status = ac.Status;
-                accidents.Add(ac);
+                accidents.Add(GetAccidente(a.Id));
             }
 
             return accidents;
+        }
+        private AccidentResponse GetAccidente(int id)
+        {
+            List<AccidentResponse> accidents = new List<AccidentResponse>();
+
+            var accident = accidentRepository.GetAccidentById(id);
+            if (accident == null)
+                return null;
+
+            AccidentResponse ac = new AccidentResponse();
+            ac.Id = accident.Id;
+            ac.Address = parseAddress(addressRepository.GetAdressById(accident.AddressId));
+            ac.Partner = parsePartner(partnerRepository.GetPartnerById(accident.PartnerId));
+            ac.Assistances = parseAssistances(accident);
+            ac.Status = ac.Status;
+            ac.OccurredDate = accident.OccurredDate;
+            ac.RepliedNotification = accident.RepliedNotification;
+            accidents.Add(ac);
+            
+            return ac;
         }
         private AccidentResponse AddAccidente(Accident _accident)
         {
@@ -121,6 +135,16 @@ namespace GigEconomyCore.Domain.Handler
             if (tAddress == null)
                 return null;
 
+            tAccident.PartnerId = tPartner.Id;
+            tAccident.AddressId = tAddress.Id;
+            tAccident.OccurredDate = DateTime.Now;
+            tAccident.RepliedNotification = _accident.RepliedNotification;
+            tAccident.Status = 1;
+
+            tAccident = accidentRepository.AddAccident(tAccident);
+            if (tAccident == null)
+                return null;
+
             foreach (var assistence in _accident.Assistances)
             {
                 T_ASSISTANCE tAssistence = new T_ASSISTANCE();
@@ -130,22 +154,15 @@ namespace GigEconomyCore.Domain.Handler
                 tAssistence.Type = (int)assistence.Type;
                 tAssistence.SinisterCircumstances = assistence.SinisterCircumstances;
                 tAssistence.Status = (int)assistence.Status;
+                tAssistence.AccidentId = tAccident.Id;
 
                 tAssistence = assistanceRepository.AddAssistance(tAssistence);
                 if (tAssistence == null)
                     return null;
 
                 assistence.Id = tAssistence.Id;
-               
-            }
-         
-            tAccident.PartnerId = tPartner.Id;
-            tAccident.AddressId = tAddress.Id;
-            tAccident.Status = 1;
 
-            tAccident = accidentRepository.AddAccident(tAccident);
-            if (tAccident == null)
-                return null;
+            }
 
             return parseAccidente(tAccident, tPartner, tAddress);
         }
@@ -166,7 +183,7 @@ namespace GigEconomyCore.Domain.Handler
         {
             List<Assistance> assistences = new List<Assistance>();
 
-            List<T_ASSISTANCE> tAssistences = assistanceRepository.GetAssistanceByPartnerId(tAccident.PartnerId);
+            List<T_ASSISTANCE> tAssistences = assistanceRepository.GetAssistanceByAccidentId(tAccident.Id);
 
             foreach (T_ASSISTANCE ta in tAssistences)
             {
@@ -193,7 +210,7 @@ namespace GigEconomyCore.Domain.Handler
             partner.Rg = tPartner.Rg;
             partner.Name = tPartner.Name;
             partner.BirthDate = tPartner.BirthDate;
-            //partner.Phone = getPhone();
+            //partner.Phone = tPartner.Phone;
 
             return partner;
         }

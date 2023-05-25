@@ -34,12 +34,12 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
-       /* [HttpGet("{id}")]
+        [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAccidentById(int Id)
+        public IActionResult GetAccidentById(int id)
         {
-            var response = (GenericCommandResult)this.accidentHandler.Handler(Id);
+            var response = (GenericCommandResult)this.accidentHandler.Handler(id);
         
             if(!response.Success)
                 return BadRequest(response);
@@ -48,7 +48,7 @@ namespace GigEconomyCore.API.Controllers
                 return NoContent();
 
             return Ok(response.Data);
-        }*/
+        }
 
         [HttpGet("{status}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]

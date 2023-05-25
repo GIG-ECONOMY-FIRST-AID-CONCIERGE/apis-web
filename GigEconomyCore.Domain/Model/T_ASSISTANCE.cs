@@ -7,6 +7,7 @@ namespace GigEconomyCore.Domain.Model
         public int Id { get; set; }
 
         public int PartnerId { get; set; }
+        public int AccidentId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
