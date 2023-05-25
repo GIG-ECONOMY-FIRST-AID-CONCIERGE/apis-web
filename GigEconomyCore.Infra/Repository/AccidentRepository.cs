@@ -22,9 +22,8 @@ namespace GigEconomyCore.Infra.Repository
             this._context = _context;
         }
 
-        public T_ACCIDENT AddAccident(Accident accident)
+        public T_ACCIDENT AddAccident(T_ACCIDENT accident)
         {
-            _context.T_Sinister.Add
             _context.T_Accident.Add(accident);
             _context.SaveChanges();
             return accident;
