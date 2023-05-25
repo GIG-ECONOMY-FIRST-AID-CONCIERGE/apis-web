@@ -15,12 +15,13 @@ namespace GigEconomyCore.Infra.Context
            
         }
 
-        public DbSet<T_ADRESS> T_Address{ get; set; }
+        public DbSet<T_ADDRESS> T_Address{ get; set; }
         public DbSet<T_ASSISTANCE> T_Assistance { get; set; }
         public DbSet<T_ASSISTANCE_RECORDS> T_Assistance_Records { get; set; }
         public DbSet<T_PARTNER> T_Partner { get; set; }
         public DbSet<T_SINISTER> T_Sinister { get; set; }
         public DbSet<T_VEHICLE> T_Vehicle { get; set; }
+        public DbSet<T_ACCIDENT> T_Accident { get; set; }
     }
 
 }

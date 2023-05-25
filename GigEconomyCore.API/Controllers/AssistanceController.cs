@@ -18,7 +18,7 @@ namespace GigEconomyCore.API.Controllers
             this.assistanceHandler = assistanceHandler;
         }
 
-        /*[HttpGet("{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Assistance))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPartnerById(int Id)
@@ -32,7 +32,7 @@ namespace GigEconomyCore.API.Controllers
                 return NoContent();
 
             return Ok(response.Data);
-        }*/
+        }
 
         [HttpGet("{status}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Assistance))]

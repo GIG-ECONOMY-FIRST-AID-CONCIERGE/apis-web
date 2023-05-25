@@ -13,33 +13,33 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Infra.Repository
 {
-    public class AssistanceRepository : IAssistanceRepository
+    public class AddressRepository : IAddressRepository
     {
         private readonly DataContext _context;
 
-        public AssistanceRepository(DataContext _context)
+        public AddressRepository(DataContext _context)
         {
             this._context = _context;
         }
 
-        public T_ASSISTANCE AddAssistance(T_ASSISTANCE assistence)
+        public T_ADDRESS AddAdress(T_ADDRESS adress)
         {
-            _context.T_Assistance.Add(assistence);
+            _context.T_Address.Add(adress);
             _context.SaveChanges();
-            return assistence;
+            return adress;
         }
 
-        public T_ASSISTANCE DeleteAssistance(T_ASSISTANCE assistence)
+        public T_ADDRESS DeleteAdress(T_ADDRESS adress)
         {
             throw new NotImplementedException();
         }
 
-        public T_ASSISTANCE GetAssistanceById(int Id)
+        public T_ADDRESS GetAdressById(int Id)
         {
-            return _context.T_Assistance.Where(p => p.Id == Id).FirstOrDefault();
+            return _context.T_Address.Where(p => p.Id == Id).FirstOrDefault();
         }
 
-        public T_ASSISTANCE UpdateAssistance(T_ASSISTANCE assistence)
+        public T_ADDRESS UpdateAdress(T_ADDRESS adress)
         {
             throw new NotImplementedException();
         }

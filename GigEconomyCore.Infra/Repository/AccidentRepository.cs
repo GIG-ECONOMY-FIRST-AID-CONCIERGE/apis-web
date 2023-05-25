@@ -13,33 +13,39 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Infra.Repository
 {
-    public class AssistanceRepository : IAssistanceRepository
+    public class AccidentRepository : IAccidentRepository
     {
         private readonly DataContext _context;
 
-        public AssistanceRepository(DataContext _context)
+        public AccidentRepository(DataContext _context)
         {
             this._context = _context;
         }
 
-        public T_ASSISTANCE AddAssistance(T_ASSISTANCE assistence)
+        public T_ACCIDENT AddAccident(Accident accident)
         {
-            _context.T_Assistance.Add(assistence);
+            _context.T_Sinister.Add
+            _context.T_Accident.Add(accident);
             _context.SaveChanges();
-            return assistence;
+            return accident;
         }
 
-        public T_ASSISTANCE DeleteAssistance(T_ASSISTANCE assistence)
+        public T_ACCIDENT DeleteAccident(T_ACCIDENT assistence)
         {
             throw new NotImplementedException();
         }
 
-        public T_ASSISTANCE GetAssistanceById(int Id)
+        public T_ACCIDENT GetAccidentById(int Id)
         {
-            return _context.T_Assistance.Where(p => p.Id == Id).FirstOrDefault();
+            return _context.T_Accident.Where(p => p.Id == Id).FirstOrDefault();
         }
 
-        public T_ASSISTANCE UpdateAssistance(T_ASSISTANCE assistence)
+        public List<T_ACCIDENT> GetAccidentByStatus(string status)
+        {
+            return _context.T_Accident.Where(p => p.Status == status).ToList();
+        }
+
+        public T_ACCIDENT UpdateAccident(T_ACCIDENT assistence)
         {
             throw new NotImplementedException();
         }

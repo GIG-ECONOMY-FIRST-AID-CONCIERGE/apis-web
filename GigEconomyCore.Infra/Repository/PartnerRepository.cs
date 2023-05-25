@@ -1,4 +1,5 @@
-﻿using GigEconomyCore.Domain.IRepository;
+﻿using GigEconomyCore.Domain.Entity;
+using GigEconomyCore.Domain.IRepository;
 using GigEconomyCore.Domain.Model;
 using GigEconomyCore.Infra.Context;
 using System;
@@ -20,7 +21,9 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_PARTNER AddPartner(T_PARTNER partner)
         {
-            throw new NotImplementedException();
+            _context.T_Partner.Add(partner);
+            _context.SaveChanges();
+            return partner;
         }
 
         public T_PARTNER DeletePartner(T_PARTNER partner)

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GigEconomyCore.Domain.Model
 {
-    public class T_ADRESS
+    public class T_ADDRESS
     {
         public int Id { get; set; }
         public int PartnerId { get; set; }

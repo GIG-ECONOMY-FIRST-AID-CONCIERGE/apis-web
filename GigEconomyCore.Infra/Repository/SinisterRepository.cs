@@ -13,33 +13,33 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Infra.Repository
 {
-    public class AssistanceRepository : IAssistanceRepository
+    public class SinisterRepository : ISinisterRepository
     {
         private readonly DataContext _context;
 
-        public AssistanceRepository(DataContext _context)
+        public SinisterRepository(DataContext _context)
         {
             this._context = _context;
         }
 
-        public T_ASSISTANCE AddAssistance(T_ASSISTANCE assistence)
+        public T_SINISTER AddSinister(T_SINISTER sinister)
         {
-            _context.T_Assistance.Add(assistence);
+            _context.T_Sinister.Add(sinister);
             _context.SaveChanges();
-            return assistence;
+            return sinister;
         }
 
-        public T_ASSISTANCE DeleteAssistance(T_ASSISTANCE assistence)
+        public T_SINISTER DeleteSinister(T_SINISTER sinister)
         {
             throw new NotImplementedException();
         }
 
-        public T_ASSISTANCE GetAssistanceById(int Id)
+        public T_SINISTER GetSinisterById(int Id)
         {
-            return _context.T_Assistance.Where(p => p.Id == Id).FirstOrDefault();
+            return _context.T_Sinister.Where(p => p.Id == Id).FirstOrDefault();
         }
 
-        public T_ASSISTANCE UpdateAssistance(T_ASSISTANCE assistence)
+        public T_SINISTER UpdateSinister(T_SINISTER sinister)
         {
             throw new NotImplementedException();
         }

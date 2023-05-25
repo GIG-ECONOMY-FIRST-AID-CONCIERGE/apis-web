@@ -11,8 +11,6 @@ namespace GigEconomyCore.Domain.IRepository
     {
         T_ASSISTANCE GetAssistanceById(int Id);
 
-        List<T_ASSISTANCE> GetAssistanceByStatus(string status);
-
         T_ASSISTANCE AddAssistance(T_ASSISTANCE assistance);
 
         T_ASSISTANCE UpdateAssistance(T_ASSISTANCE assistance);
