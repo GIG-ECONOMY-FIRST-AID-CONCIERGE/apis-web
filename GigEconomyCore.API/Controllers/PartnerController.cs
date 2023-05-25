@@ -18,28 +18,13 @@ namespace GigEconomyCore.API.Controllers
             this.partnerHandler = partnerHandler;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Partner))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("{Id}")]
         public IActionResult GetPartnerById(int Id)
         {
             var response = (GenericCommandResult)this.partnerHandler.GetPartner(Id);
-        
-            if(!response.Success)
-                return BadRequest(response);
-
-            if (response.Data == null)
-                return NoContent();
-
-            return Ok(response.Data);
-        }
-
-        [HttpGet("{nationalId}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Partner))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetPartnerByNationalId(int nationalId)
-        {
-            var response = (GenericCommandResult)this.partnerHandler.GetPartner(nationalId);
 
             if (!response.Success)
                 return BadRequest(response);
@@ -50,12 +35,14 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
-        [HttpGet("{nationalId}")]
+        
+
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Partner))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult PostPartner(Partner Partner)
+        public IActionResult PostPartner([FromBody] Partner partner)
         {
-            var response = (GenericCommandResult)this.partnerHandler.Handler(nationalId);
+            var response = (GenericCommandResult)this.partnerHandler.AddPartner(partner);
 
             if (!response.Success)
                 return BadRequest(response);

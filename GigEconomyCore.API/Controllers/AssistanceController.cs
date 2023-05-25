@@ -19,9 +19,7 @@ namespace GigEconomyCore.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Assistance))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetPartnerById(int Id)
+        public IActionResult GetPartnerById([FromRoute]  int Id)
         {
             var response = (GenericCommandResult)this.assistanceHandler.Handler(Id);
         

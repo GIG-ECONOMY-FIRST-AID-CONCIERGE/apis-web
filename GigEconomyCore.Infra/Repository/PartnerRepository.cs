@@ -38,7 +38,7 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_PARTNER GetPartnerByNationalId(string NationalId)
         {
-            return _context.T_Partner.Where(p => p.Rg == NationalId).FirstOrDefault();
+            return _context.T_Partner.Where(p => p.Rg == NationalId || p.Cpf == NationalId).FirstOrDefault();
         }
 
         public T_PARTNER UpdatePartner(T_PARTNER partner)

@@ -1,5 +1,8 @@
-﻿using GigEconomyCore.Domain.Helper;
+﻿using GigEconomyCore.Domain.Entity;
+using GigEconomyCore.Domain.Helper;
 using GigEconomyCore.Domain.IRepository;
+using GigEconomyCore.Domain.Model;
+using GigEconomyCore.Domain.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,7 @@ namespace GigEconomyCore.Domain.Handler
     public class PartnerHandler
     {
         private readonly IPartnerRepository partnerRepository;
-
+        
         public PartnerHandler(IPartnerRepository _partnerRepository)
         {
             partnerRepository = _partnerRepository;
@@ -41,21 +44,20 @@ namespace GigEconomyCore.Domain.Handler
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
 
             return new GenericCommandResult(true, "Success", partner);
-
         }
 
-        public ICommandResult Handler(string NationalId)
+        public ICommandResult AddPartner(Partner partner)
         {
-            if (String.IsNullOrEmpty(NationalId))
+            if (partner == null)
                 return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
 
-            var partner = partnerRepository.GetPartnerByNationalId(NationalId);
+            PartnerMapper partnerMapper = new PartnerMapper(partner);
 
-            if (partner == null)
-                return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
+            T_PARTNER t_partner = partnerMapper.Convert();
+
+            var addedPartner = partnerRepository.AddPartner(t_partner);
 
             return new GenericCommandResult(true, "Success", partner);
-
         }
 
 
