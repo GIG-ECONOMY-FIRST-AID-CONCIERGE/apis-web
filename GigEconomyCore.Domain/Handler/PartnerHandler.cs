@@ -6,6 +6,7 @@ using GigEconomyCore.Domain.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,20 +41,27 @@ namespace GigEconomyCore.Domain.Handler
             if (partner == null)
                 return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
 
-            PartnerMapper partnerMapper = new PartnerMapper(partner);
+            PartnerMapper partnerMapper = new PartnerMapper();
 
-            T_PARTNER t_partner = partnerMapper.Convert();
+            T_PARTNER t_partner = partnerMapper.Convert(partner);
 
             var addedPartner = partnerRepository.AddPartner(t_partner);
 
-            if(partner.Address != null)
+            var addedAddress = new T_ADDRESS();
+            var addressMapper = new AddressMapper();
+            T_ADDRESS t_address = addressMapper.Convert(partner.Address);
+
+            if (partner.Address != null)
             {
-                var addressMapper= new AddressMapper(partner.Address);
-                T_ADDRESS t_address = addressMapper.Convert();
-
-                var addedAddress = addressRepository.AddAdress(t_address);
+                t_address.PartnerId = addedPartner.Id;
+                addedAddress = addressRepository.AddAdress(t_address);                
             }
+            partner = partnerMapper.Convert(addedPartner);
 
+            if (addedAddress != null)
+            {
+                partner.Address = addressMapper.Convert(addressRepository.GetAdressByPartnerId(partner.Id));
+            }
             return new GenericCommandResult(true, "Success", partner);
         }
 
