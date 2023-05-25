@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Domain.Utils
 {
-    internal class PartnerMapper
+    public class PartnerMapper
     {
     }
 }
