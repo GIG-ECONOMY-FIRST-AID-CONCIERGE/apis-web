@@ -14,10 +14,12 @@ namespace GigEconomyCore.Domain.Handler
     public class PartnerHandler
     {
         private readonly IPartnerRepository partnerRepository;
-        
-        public PartnerHandler(IPartnerRepository _partnerRepository)
+        private readonly IAddressRepository addressRepository;
+
+        public PartnerHandler(IPartnerRepository _partnerRepository, IAddressRepository _addressRepository)
         {
             partnerRepository = _partnerRepository;
+            addressRepository = _addressRepository;
         }
         public ICommandResult GetPartner(int Id)
         {
@@ -57,6 +59,10 @@ namespace GigEconomyCore.Domain.Handler
 
             var addedPartner = partnerRepository.AddPartner(t_partner);
 
+            if(partner.Address != null)
+            {
+                   
+            }
             return new GenericCommandResult(true, "Success", partner);
         }
 

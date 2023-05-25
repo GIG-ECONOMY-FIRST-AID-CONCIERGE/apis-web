@@ -33,15 +33,15 @@ namespace GigEconomyCore.Domain.Handler
 
         public ICommandResult Handler(string status)
         {
-            if (String.IsNullOrEmpty(status))
-                return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
+            //if (String.IsNullOrEmpty(status))
+            //    return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
 
-            var assistance = assistanceRepository.GetAssistanceByStatus(status);
+            //var assistance = assistanceRepository.GetAssistanceByStatus(status);
 
-            if (assistance == null)
+            //if (assistance == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
 
-            return new GenericCommandResult(true, "Success", assistance);
+            //return new GenericCommandResult(true, "Success", assistance);
 
         }
 

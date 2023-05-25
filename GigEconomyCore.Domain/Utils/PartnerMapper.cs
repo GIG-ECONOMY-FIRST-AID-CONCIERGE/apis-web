@@ -25,6 +25,7 @@ namespace GigEconomyCore.Domain.Utils
             t_partner.Name = partner.Name;
             t_partner.Cpf = partner.Cpf;
             t_partner.BirthDate = partner.BirthDate;
+            t_partner.Rg = partner.Rg;
 
             return t_partner;
         }

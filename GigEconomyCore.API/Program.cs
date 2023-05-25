@@ -20,6 +20,7 @@ builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 
 builder.Services.AddScoped<AssistanceHandler>();
 builder.Services.AddScoped<IAssistanceRepository, AssistanceRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 var app = builder.Build();
 
