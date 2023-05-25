@@ -22,6 +22,7 @@ namespace GigEconomyCore.Domain.Utils
             T_ADDRESS t_address = new T_ADDRESS();
 
             t_address.Id = address.Id;
+            t_address.PartnerId = address.PartnerId;
             t_address.Street = address.Street;
             t_address.Number = address.Number;
             t_address.State = address.State;

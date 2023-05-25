@@ -22,11 +22,12 @@ namespace GigEconomyCore.Infra.Repository
             this._context = _context;
         }
 
-        public T_ADDRESS AddAdress(T_ADDRESS adress)
+        public T_ADDRESS AddAdress(T_ADDRESS address)
         {
-            _context.T_Address.Add(adress);
+            _context.T_Address.Add(address);
             _context.SaveChanges();
-            return adress;
+
+            return GetAddressByPartnerId(address.PartnerId);
         }
 
         public T_ADDRESS DeleteAdress(T_ADDRESS adress)
@@ -37,6 +38,11 @@ namespace GigEconomyCore.Infra.Repository
         public T_ADDRESS GetAdressById(int Id)
         {
             return _context.T_Address.Where(p => p.Id == Id).FirstOrDefault();
+        }
+
+        public T_ADDRESS GetAddressByPartnerId(int partnerId)
+        {
+            return _context.T_Address.Where(p => p.PartnerId == partnerId).OrderByDescending(a => a.Id).FirstOrDefault();
         }
 
         public T_ADDRESS UpdateAdress(T_ADDRESS adress)

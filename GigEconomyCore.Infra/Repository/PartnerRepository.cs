@@ -21,9 +21,14 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_PARTNER AddPartner(T_PARTNER partner)
         {
+            var previousPartner = GetPartnerByNationalId(partner.Cpf);
+            
+            if (previousPartner != null) { return  previousPartner; }
+
             _context.T_Partner.Add(partner);
             _context.SaveChanges();
-            return partner;
+
+            return(GetPartnerByNationalId(partner.Cpf));                        
         }
 
         public T_PARTNER DeletePartner(T_PARTNER partner)
@@ -38,7 +43,7 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_PARTNER GetPartnerByNationalId(string NationalId)
         {
-            return _context.T_Partner.Where(p => p.Rg == NationalId || p.Cpf == NationalId).FirstOrDefault();
+            return _context.T_Partner.Where(p => p.Cpf == NationalId).FirstOrDefault();
         }
 
         public T_PARTNER UpdatePartner(T_PARTNER partner)

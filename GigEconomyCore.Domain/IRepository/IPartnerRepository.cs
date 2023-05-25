@@ -11,8 +11,6 @@ namespace GigEconomyCore.Domain.IRepository
     {
         T_PARTNER GetPartnerById(int Id);
 
-        T_PARTNER GetPartnerByNationalId(string NationalId);
-
         T_PARTNER AddPartner(T_PARTNER partner);
 
         T_PARTNER UpdatePartner(T_PARTNER partner);

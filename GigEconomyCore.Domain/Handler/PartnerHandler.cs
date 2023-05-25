@@ -35,19 +35,6 @@ namespace GigEconomyCore.Domain.Handler
 
         }
 
-        public ICommandResult GetPartner(string NationalId)
-        {
-            if (String.IsNullOrEmpty(NationalId))
-                return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
-
-            var partner = partnerRepository.GetPartnerByNationalId(NationalId);
-
-            if (partner == null)
-                return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
-
-            return new GenericCommandResult(true, "Success", partner);
-        }
-
         public ICommandResult AddPartner(Partner partner)
         {
             if (partner == null)
@@ -61,8 +48,12 @@ namespace GigEconomyCore.Domain.Handler
 
             if(partner.Address != null)
             {
-                   
+                var addressMapper= new AddressMapper(partner.Address);
+                T_ADDRESS t_address = addressMapper.Convert();
+
+                var addedAddress = addressRepository.AddAdress(t_address);
             }
+
             return new GenericCommandResult(true, "Success", partner);
         }
 
