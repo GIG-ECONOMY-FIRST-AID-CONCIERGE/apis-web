@@ -22,6 +22,12 @@ builder.Services.AddScoped<AssistanceHandler>();
 builder.Services.AddScoped<IAssistanceRepository, AssistanceRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
+builder.Services.AddScoped<AccidentHandler>();
+builder.Services.AddScoped<IAccidentRepository, AccidentRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

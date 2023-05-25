@@ -2,7 +2,7 @@
 {
     public enum AccidentStatus
     {
-       Active,
-       History
+       Active = 1,
+       History = 2
     }
 }

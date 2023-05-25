@@ -39,6 +39,11 @@ namespace GigEconomyCore.Infra.Repository
             return _context.T_Assistance.Where(p => p.Id == Id).FirstOrDefault();
         }
 
+        public List<T_ASSISTANCE> GetAssistanceByAccidentId(int Id)
+        {
+            return _context.T_Assistance.Where(p => p.AccidentId == Id).ToList();
+        }
+
         public T_ASSISTANCE UpdateAssistance(T_ASSISTANCE assistence)
         {
             throw new NotImplementedException();

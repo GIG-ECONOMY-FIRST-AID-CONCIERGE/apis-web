@@ -1,10 +1,14 @@
-﻿namespace GigEconomyCore.Domain.Enum
+﻿using System.ComponentModel;
+
+namespace GigEconomyCore.Domain.Enum
 {
     public enum AssistanceStatus
     {
-        Comunicada, //sinistro comunicado
-        Andamento, //verificou que é procedente (cadastro - veículo)
-        Cancelada, //parceiro cancelou / trote / não procedente
-        Finalizada //assistencia prestada
+        Comunicada = 1, //sinistro comunicado
+        Andamento = 2, //verificou que é procedente (cadastro - veículo)
+        Cancelada = 3, //parceiro cancelou / trote / não procedente
+        Finalizada = 4 //assistencia prestada
+
     }
+
 }

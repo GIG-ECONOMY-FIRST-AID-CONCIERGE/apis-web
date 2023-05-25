@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace GigEconomyCore.Domain.Entity
 {
-    public class Accident
+    public class AccidentResponse
     {
         public int Id { get; set; }
         public Address Address { get; set; }
-        public int PartnerId { get; set; }
+        public Partner Partner { get; set; }
         public List<Assistance> Assistances { get; set; }
+        public AccidentStatus Status { get; set; }
 
+        public DateTime OccurredDate { get; set; }
         public bool RepliedNotification { get; set; }
 
-
-        public Accident()
+        public AccidentResponse()
         {
             this.Assistances = new List<Assistance>();
         }

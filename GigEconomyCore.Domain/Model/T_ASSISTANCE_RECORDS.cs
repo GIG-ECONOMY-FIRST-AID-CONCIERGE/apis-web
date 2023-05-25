@@ -6,6 +6,6 @@
         public int AssistanceId { get; set; }
         public DateTime RecordDate { get; set; }
         public string Observation { get; set; }
-        public string Status { get; set; }
+        
     }
 }

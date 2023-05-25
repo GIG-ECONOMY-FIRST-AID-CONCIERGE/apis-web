@@ -16,22 +16,31 @@ namespace GigEconomyCore.Domain.Handler
     public class AccidentHandler
     {
         private readonly IAccidentRepository accidentRepository;
-        private readonly ISinisterRepository sinisterRepository;
+        private readonly IAssistanceRepository assistanceRepository;
+        private readonly IPartnerRepository partnerRepository;
         private readonly IAddressRepository addressRepository;
-        private readonly IVehicloRepository vehicloRepository;
+        private readonly IVehicleRepository vehicleRepository;
 
-       
 
-        public AccidentHandler(IAccidentRepository _accidentRepository)
+
+        public AccidentHandler(IAccidentRepository _accidentRepository, 
+            IAssistanceRepository _assistanceRepository,
+            IPartnerRepository _partnerRepository,
+            IAddressRepository _addressRepository,
+            IVehicleRepository _vehicleRepository)
         {
             accidentRepository = _accidentRepository;
-    }
-        public ICommandResult Handler(int Id)
+            assistanceRepository = _assistanceRepository;
+            partnerRepository = _partnerRepository;
+            addressRepository = _addressRepository;
+            vehicleRepository = _vehicleRepository;
+        }
+        public ICommandResult Handler(int id)
         {
-            if (Id < 1)
+            if (id < 1)
                 return new GenericCommandResult(false, "Id informado é menor que o permitido", null);
 
-            var accident = accidentRepository.GetAccidentById(Id);
+            var accident = GetAccidente(id);
 
             if (accident == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
@@ -45,13 +54,8 @@ namespace GigEconomyCore.Domain.Handler
             if (_accident == null)
                 return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
 
-            var accident = new Accident();
-            /*var accident = accidentRepository.AddAccident(_accident);
-            var sinister = sinisterRepository.AddAccident(_accident);
-            var address = AddressRepository.AddAccident(_accident);
-            var vehiclo = vehicleRepository.AddAccident(_accident);*/
-
-
+            var accident = AddAccidente(_accident);
+           
             if (accident == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
 
@@ -59,12 +63,12 @@ namespace GigEconomyCore.Domain.Handler
 
         }
 
-        public ICommandResult Handler(string status)
+        public ICommandResult HandlerStatus(int status)
         {
-            if (String.IsNullOrEmpty(status))
+            if (status == null)
                 return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
 
-            var accident = accidentRepository.GetAccidentByStatus(status);
+            var accident = GetAccidentes(status);
 
             if (accident == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
@@ -72,7 +76,160 @@ namespace GigEconomyCore.Domain.Handler
             return new GenericCommandResult(true, "Success", accident);
 
         }
+        private List<AccidentResponse> GetAccidentes(int status)
+        {
+            List<AccidentResponse> accidents = new List<AccidentResponse>();
 
-        
+            var accident = accidentRepository.GetAccidentByStatus(status);
+            if (accident == null)
+                return null;
+
+            foreach (T_ACCIDENT a in accident)
+            {
+                accidents.Add(GetAccidente(a.Id));
+            }
+
+            return accidents;
+        }
+        private AccidentResponse GetAccidente(int id)
+        {
+            List<AccidentResponse> accidents = new List<AccidentResponse>();
+
+            var accident = accidentRepository.GetAccidentById(id);
+            if (accident == null)
+                return null;
+
+            AccidentResponse ac = new AccidentResponse();
+            ac.Id = accident.Id;
+            ac.Address = parseAddress(addressRepository.GetAdressById(accident.AddressId));
+            ac.Partner = parsePartner(partnerRepository.GetPartnerById(accident.PartnerId));
+            ac.Assistances = parseAssistances(accident);
+            ac.Status = ac.Status;
+            ac.OccurredDate = accident.OccurredDate;
+            ac.RepliedNotification = accident.RepliedNotification;
+            accidents.Add(ac);
+            
+            return ac;
+        }
+        private AccidentResponse AddAccidente(Accident _accident)
+        {
+
+            T_ACCIDENT tAccident = new T_ACCIDENT();
+          
+            T_ADDRESS tAddress = new T_ADDRESS();
+
+            var tPartner = partnerRepository.GetPartnerById(_accident.PartnerId);
+            if (tPartner == null)
+                return null;
+
+            tAddress.PartnerId = tPartner.Id;
+            tAddress.Street = _accident.Address.Street;
+            tAddress.Number = _accident.Address.Number;
+            tAddress.postalCode = _accident.Address.PostalCode;
+            tAddress.City = _accident.Address.City;
+            tAddress.State = _accident.Address.State;
+            tAddress.CoordX = _accident.Address.CoordX;
+            tAddress.CoordY = _accident.Address.CoordY;
+
+            tAddress = addressRepository.AddAdress(tAddress);
+            if (tAddress == null)
+                return null;
+
+            tAccident.PartnerId = tPartner.Id;
+            tAccident.AddressId = tAddress.Id;
+            tAccident.OccurredDate = DateTime.Now;
+            tAccident.RepliedNotification = _accident.RepliedNotification;
+            tAccident.Status = 1;
+
+            tAccident = accidentRepository.AddAccident(tAccident);
+            if (tAccident == null)
+                return null;
+
+            foreach (var assistence in _accident.Assistances)
+            {
+                T_ASSISTANCE tAssistence = new T_ASSISTANCE();
+                tAssistence.PartnerId = tPartner.Id;
+                tAssistence.Name = assistence.Name;
+                tAssistence.Description = assistence.Description;
+                tAssistence.Type = (int)assistence.Type;
+                tAssistence.SinisterCircumstances = assistence.SinisterCircumstances;
+                tAssistence.Status = (int)assistence.Status;
+                tAssistence.AccidentId = tAccident.Id;
+
+                tAssistence = assistanceRepository.AddAssistance(tAssistence);
+                if (tAssistence == null)
+                    return null;
+
+                assistence.Id = tAssistence.Id;
+
+            }
+
+            return parseAccidente(tAccident, tPartner, tAddress);
+        }
+
+        private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
+        {
+            AccidentResponse accidentResponse = new AccidentResponse();
+            accidentResponse.Id = tAccident.Id;
+            accidentResponse.Partner = parsePartner(tPartner);
+            accidentResponse.Address = parseAddress(tAddress);
+            accidentResponse.Assistances = parseAssistances(tAccident);
+            accidentResponse.Status = (AccidentStatus)tAccident.Status;
+
+            return accidentResponse;
+        }
+
+        private List<Assistance> parseAssistances(T_ACCIDENT tAccident)
+        {
+            List<Assistance> assistences = new List<Assistance>();
+
+            List<T_ASSISTANCE> tAssistences = assistanceRepository.GetAssistanceByAccidentId(tAccident.Id);
+
+            foreach (T_ASSISTANCE ta in tAssistences)
+            {
+                Assistance a = new Assistance();
+                a.Id = ta.Id;
+                a.Name = ta.Name;
+                a.Description = ta.Description;
+                a.SinisterCircumstances = ta.SinisterCircumstances;
+                a.Status = (AssistanceStatus)1;
+                a.Type = (AssistanceType)1;
+
+                assistences.Add(a);
+            }
+            return assistences;
+        }
+
+        private Partner parsePartner(T_PARTNER tPartner)
+        {
+            Partner partner = new Partner();
+            T_ADDRESS partnerAddress = addressRepository.GetAdressByPartnerId(tPartner.Id);
+            partner.Id = tPartner.Id;
+            partner.Address = parseAddress(partnerAddress);
+            partner.Cpf = tPartner.Cpf;
+            partner.Rg = tPartner.Rg;
+            partner.Name = tPartner.Name;
+            partner.BirthDate = tPartner.BirthDate;
+            //partner.Phone = tPartner.Phone;
+
+            return partner;
+        }
+        private static Address parseAddress(T_ADDRESS tAddress)
+        {
+            Address address = new Address();
+            address.Id = tAddress.Id;
+            address.Street = tAddress.Street;
+            address.Number = tAddress.Number;
+            address.PostalCode = tAddress.postalCode;
+            address.City = tAddress.City;
+            address.State = tAddress.State;
+            address.CoordX = tAddress.CoordX;
+            address.CoordY = tAddress.CoordY;
+
+            return address;
+        }
+
+
+
     }
 }

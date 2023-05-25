@@ -19,7 +19,7 @@ namespace GigEconomyCore.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPartnerById([FromRoute]  int Id)
+        public IActionResult GetAssistanceById([FromRoute]  int Id)
         {
             var response = (GenericCommandResult)this.assistanceHandler.Handler(Id);
         
@@ -32,21 +32,6 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
-        [HttpGet("{status}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Assistance))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAssistanceByStatus(string status)
-        {
-            var response = (GenericCommandResult)this.assistanceHandler.Handler(status);
-
-            if (!response.Success)
-                return BadRequest(response);
-
-            if (response.Data == null)
-                return NoContent();
-
-            return Ok(response.Data);
-        }
 
     }
 }
