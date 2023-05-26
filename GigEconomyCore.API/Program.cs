@@ -29,7 +29,7 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
-        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader().SetIsOriginAllowed(origin => true))
 );
 
 var app = builder.Build();
@@ -46,6 +46,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
+
 app.Run();
 
-app.UseCors();
