@@ -19,9 +19,9 @@ namespace GigEconomyCore.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAssistanceById([FromRoute]  int Id)
+        public IActionResult GetAssistanceById([FromRoute]  int id)
         {
-            var response = (GenericCommandResult)this.assistanceHandler.Handler(Id);
+            var response = (GenericCommandResult)this.assistanceHandler.Handler(id);
         
             if(!response.Success)
                 return BadRequest(response);
@@ -32,6 +32,21 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult PostAddAssistance([FromBody] Assistance assistance)
+        {
+            var response = (GenericCommandResult)this.assistanceHandler.HandlerAddAssistance(assistance);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            if (response.Data == null)
+                return NoContent();
+
+            return Ok(response.Data);
+        }
 
     }
 }
