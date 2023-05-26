@@ -27,6 +27,10 @@ builder.Services.AddScoped<IAccidentRepository, AccidentRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
+builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+);
 
 var app = builder.Build();
 
@@ -43,3 +47,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+app.UseCors();
