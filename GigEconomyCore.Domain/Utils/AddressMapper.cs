@@ -18,6 +18,7 @@ namespace GigEconomyCore.Domain.Utils
             t_address.Id = address.Id;
             t_address.Street = address.Street;
             t_address.Number = address.Number;
+            t_address.PostalCode = address.PostalCode;
             t_address.State = address.State;
             t_address.City = address.City;
             t_address.CoordX = address.CoordX;
