@@ -10,6 +10,7 @@ namespace GigEconomyCore.Domain.IRepository
     public interface IAddressRepository
     {
         T_ADDRESS GetAdressById(int Id);
+        
         T_ADDRESS GetAdressByPartnerId(int Id);
 
         T_ADDRESS AddAdress(T_ADDRESS adress);

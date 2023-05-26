@@ -125,7 +125,7 @@ namespace GigEconomyCore.Domain.Handler
             tAddress.PartnerId = tPartner.Id;
             tAddress.Street = _accident.Address.Street;
             tAddress.Number = _accident.Address.Number;
-            tAddress.postalCode = _accident.Address.PostalCode;
+            tAddress.PostalCode = _accident.Address.PostalCode;
             tAddress.City = _accident.Address.City;
             tAddress.State = _accident.Address.State;
             tAddress.CoordX = _accident.Address.CoordX;
@@ -220,7 +220,7 @@ namespace GigEconomyCore.Domain.Handler
             address.Id = tAddress.Id;
             address.Street = tAddress.Street;
             address.Number = tAddress.Number;
-            address.PostalCode = tAddress.postalCode;
+            address.PostalCode = tAddress.PostalCode;
             address.City = tAddress.City;
             address.State = tAddress.State;
             address.CoordX = tAddress.CoordX;

@@ -1,6 +1,7 @@
 ﻿using GigEconomyCore.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,12 @@ namespace GigEconomyCore.Domain.IRepository
     {
         T_PARTNER GetPartnerById(int Id);
 
-        T_PARTNER AddPartner(T_PARTNER partner);
+        T_PARTNER GetPartnerByNationalId(string nationalId);
 
-        T_PARTNER UpdatePartner(T_PARTNER partner);
+        void AddPartner(T_PARTNER partner);
 
-        T_PARTNER DeletePartner(T_PARTNER partner);
+        void UpdatePartner(T_PARTNER partner);
+
+        void DeletePartner(T_PARTNER partner);
     }
 }
