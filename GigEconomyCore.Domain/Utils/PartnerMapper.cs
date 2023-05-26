@@ -10,14 +10,8 @@ namespace GigEconomyCore.Domain.Utils
 {
     public class PartnerMapper
     {
-        private readonly Partner partner;
-
-        public PartnerMapper(Partner partner)
-        {
-            this.partner = partner;
-        }
-
-        public T_PARTNER Convert()
+        
+        public T_PARTNER Convert(Partner partner)
         {
             T_PARTNER t_partner = new T_PARTNER();
 
@@ -25,8 +19,22 @@ namespace GigEconomyCore.Domain.Utils
             t_partner.Name = partner.Name;
             t_partner.Cpf = partner.Cpf;
             t_partner.BirthDate = partner.BirthDate;
+            t_partner.Rg = partner.Rg;
 
             return t_partner;
+        }
+
+        public Partner Convert(T_PARTNER t_partner)
+        {
+            Partner partner = new Partner();
+
+            partner.Id = t_partner.Id;
+            partner.Name = t_partner.Name;
+            partner.Cpf = t_partner.Cpf;
+            partner.BirthDate = t_partner.BirthDate;
+            partner.Rg = t_partner.Rg;
+
+            return partner;
         }
     }
 }

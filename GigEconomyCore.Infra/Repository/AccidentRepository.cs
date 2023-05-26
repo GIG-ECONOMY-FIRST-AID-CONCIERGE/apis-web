@@ -44,9 +44,16 @@ namespace GigEconomyCore.Infra.Repository
             return _context.T_Accident.Where(p => p.Status == status).ToList();
         }
 
-        public T_ACCIDENT UpdateAccident(T_ACCIDENT assistence)
+        public List<T_ACCIDENT> GetAccidentByStatus(string status)
         {
             throw new NotImplementedException();
+        }
+
+        public T_ACCIDENT UpdateAccident(T_ACCIDENT accident)
+        {
+            _context.T_Accident.Update(accident);
+            _context.SaveChanges();
+            return accident;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace GigEconomyCore.Infra.Repository
         }
 
         public T_ADDRESS AddAdress(T_ADDRESS adress)
-        {
+        {            
             _context.T_Address.Add(adress);
             _context.SaveChanges();
             return adress;

@@ -76,6 +76,24 @@ namespace GigEconomyCore.Domain.Handler
             return new GenericCommandResult(true, "Success", accident);
 
         }
+
+        public ICommandResult HandlerUpdateStatus(int status, int Id)
+        {
+            if (status == null)
+                return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
+
+            var accident = accidentRepository.GetAccidentById(Id);
+
+            if (accident == null)
+                return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
+
+            accident.Status = status;
+
+            accidentRepository.UpdateAccident(accident);
+
+            return new GenericCommandResult(true, "Success", accident);
+        }
+
         private List<AccidentResponse> GetAccidentes(int status)
         {
             List<AccidentResponse> accidents = new List<AccidentResponse>();
@@ -125,7 +143,7 @@ namespace GigEconomyCore.Domain.Handler
             tAddress.PartnerId = tPartner.Id;
             tAddress.Street = _accident.Address.Street;
             tAddress.Number = _accident.Address.Number;
-            tAddress.postalCode = _accident.Address.PostalCode;
+            tAddress.PostalCode = _accident.Address.PostalCode;
             tAddress.City = _accident.Address.City;
             tAddress.State = _accident.Address.State;
             tAddress.CoordX = _accident.Address.CoordX;
@@ -167,7 +185,7 @@ namespace GigEconomyCore.Domain.Handler
             return parseAccidente(tAccident, tPartner, tAddress);
         }
 
-        private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
+            private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
         {
             AccidentResponse accidentResponse = new AccidentResponse();
             accidentResponse.Id = tAccident.Id;
@@ -214,13 +232,14 @@ namespace GigEconomyCore.Domain.Handler
 
             return partner;
         }
+
         private static Address parseAddress(T_ADDRESS tAddress)
         {
             Address address = new Address();
             address.Id = tAddress.Id;
             address.Street = tAddress.Street;
             address.Number = tAddress.Number;
-            address.PostalCode = tAddress.postalCode;
+            address.PostalCode = tAddress.PostalCode;
             address.City = tAddress.City;
             address.State = tAddress.State;
             address.CoordX = tAddress.CoordX;
@@ -229,7 +248,7 @@ namespace GigEconomyCore.Domain.Handler
             return address;
         }
 
-
+        
 
     }
 }
