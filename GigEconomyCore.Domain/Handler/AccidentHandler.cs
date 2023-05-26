@@ -76,6 +76,24 @@ namespace GigEconomyCore.Domain.Handler
             return new GenericCommandResult(true, "Success", accident);
 
         }
+
+        public ICommandResult HandlerUpdateStatus(int status, int Id)
+        {
+            if (status == null)
+                return new GenericCommandResult(false, "O Parâmetro não pode ser nulo", null);
+
+            var accident = accidentRepository.GetAccidentById(Id);
+
+            if (accident == null)
+                return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
+
+            accident.Status = status;
+
+            accidentRepository.UpdateAccident(accident);
+
+            return new GenericCommandResult(true, "Success", accident);
+        }
+
         private List<AccidentResponse> GetAccidentes(int status)
         {
             List<AccidentResponse> accidents = new List<AccidentResponse>();
@@ -167,7 +185,7 @@ namespace GigEconomyCore.Domain.Handler
             return parseAccidente(tAccident, tPartner, tAddress);
         }
 
-        private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
+            private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
         {
             AccidentResponse accidentResponse = new AccidentResponse();
             accidentResponse.Id = tAccident.Id;
@@ -214,6 +232,7 @@ namespace GigEconomyCore.Domain.Handler
 
             return partner;
         }
+
         private static Address parseAddress(T_ADDRESS tAddress)
         {
             Address address = new Address();
@@ -229,7 +248,7 @@ namespace GigEconomyCore.Domain.Handler
             return address;
         }
 
-
+        
 
     }
 }

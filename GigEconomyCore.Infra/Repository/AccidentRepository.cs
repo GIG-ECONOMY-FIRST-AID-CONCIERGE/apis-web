@@ -49,9 +49,11 @@ namespace GigEconomyCore.Infra.Repository
             throw new NotImplementedException();
         }
 
-        public T_ACCIDENT UpdateAccident(T_ACCIDENT assistence)
+        public T_ACCIDENT UpdateAccident(T_ACCIDENT accident)
         {
-            throw new NotImplementedException();
+            _context.T_Accident.Update(accident);
+            _context.SaveChanges();
+            return accident;
         }
     }
 }

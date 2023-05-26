@@ -66,5 +66,21 @@ namespace GigEconomyCore.API.Controllers
             return Ok(response.Data);
         }
 
+        [HttpPut("{status}/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Accident))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAccidentByStatus(int status, int id)
+        {
+            var response = (GenericCommandResult)this.accidentHandler.HandlerUpdateStatus(status, id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            if (response.Data == null)
+                return NoContent();
+
+            return Ok(response.Data);
+        }
+
     }
 }
