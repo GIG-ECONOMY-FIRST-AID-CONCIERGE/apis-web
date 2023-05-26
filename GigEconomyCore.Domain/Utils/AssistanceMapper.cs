@@ -23,7 +23,8 @@ namespace GigEconomyCore.Domain.Utils
             t_assistance.SinisterCircumstances = assistance.SinisterCircumstances;
             t_assistance.Status = (int)assistance.Status;
             t_assistance.PartnerId = assistance.PartnerId;
-            
+            t_assistance.AccidentId = assistance.AccidentId;
+
             return t_assistance;
         }
 
