@@ -1,6 +1,7 @@
 ﻿using GigEconomyCore.Domain.Entity;
 using GigEconomyCore.Domain.Helper;
 using GigEconomyCore.Domain.IRepository;
+using GigEconomyCore.Domain.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,23 @@ namespace GigEconomyCore.Domain.Handler
             if (assistance == null)
                 return new GenericCommandResult(false, "Não foram encontrados registros correspondentes ao Id Informado", null);
 
+            var assistanceMapper = new AssistanceMapper();
+
+            return new GenericCommandResult(true, "Success", assistanceMapper.Covert(assistance));
+
+        }
+
+        public ICommandResult HandlerAddAssistance(Assistance assistance)
+        {            
+            var previousAssistance = assistanceRepository.GetAssistanceById(assistance.Id);
+
+            var assistanceMapper = new AssistanceMapper();
+
+            var addedAssistance = assistanceRepository.AddAssistance(assistanceMapper.Covert(assistance));
+
             return new GenericCommandResult(true, "Success", assistance);
 
         }
-        
+
     }
 }
