@@ -3,6 +3,7 @@ using GigEconomyCore.Domain.Enum;
 using GigEconomyCore.Domain.Helper;
 using GigEconomyCore.Domain.IRepository;
 using GigEconomyCore.Domain.Model;
+using GigEconomyCore.Domain.Utils;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ namespace GigEconomyCore.Domain.Handler
             var accident = accidentRepository.GetAccidentById(id);
             if (accident == null)
                 return null;
-
+            var m = new VehicleMapper();
             AccidentResponse ac = new AccidentResponse();
             ac.Id = accident.Id;
             ac.Address = parseAddress(addressRepository.GetAdressById(accident.AddressId));
@@ -126,6 +127,7 @@ namespace GigEconomyCore.Domain.Handler
             ac.OccurredDate = accident.OccurredDate;
             ac.RepliedNotification = accident.RepliedNotification;
             ac.Description = accident.Description;
+            ac.Vehicle = m.Convert(vehicleRepository.GetVehicleByPartnerId(accident.PartnerId));
             accidents.Add(ac);
             
             return ac;
@@ -189,13 +191,15 @@ namespace GigEconomyCore.Domain.Handler
 
             private AccidentResponse parseAccidente(T_ACCIDENT tAccident, T_PARTNER tPartner, T_ADDRESS tAddress)
         {
+            var m = new VehicleMapper();
             AccidentResponse accidentResponse = new AccidentResponse();
             accidentResponse.Id = tAccident.Id;
             accidentResponse.Partner = parsePartner(tPartner);
             accidentResponse.Address = parseAddress(tAddress);
             accidentResponse.Assistances = parseAssistances(tAccident);
             accidentResponse.Status = (AccidentStatus)tAccident.Status;
-
+            accidentResponse.Vehicle = m.Convert(vehicleRepository.GetVehicleByPartnerId(tPartner.Id));
+            
             return accidentResponse;
         }
 

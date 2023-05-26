@@ -20,7 +20,7 @@ namespace GigEconomyCore.Infra.Context
         public DbSet<T_ASSISTANCE_RECORDS> T_Assistance_Records { get; set; }
         public DbSet<T_PARTNER> T_Partner { get; set; }
         public DbSet<T_SINISTER> T_Sinister { get; set; }
-        public DbSet<T_VEHICLE> T_Vehicle { get; set; }
+        public DbSet<T_VEHICLE> T_Vehiclo { get; set; }
         public DbSet<T_ACCIDENT> T_Accident { get; set; }
     }
 

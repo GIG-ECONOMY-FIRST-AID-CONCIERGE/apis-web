@@ -10,6 +10,7 @@ namespace GigEconomyCore.Domain.IRepository
     public interface IVehicleRepository
     {
         T_VEHICLE GetVehicleById(int Id);
+        T_VEHICLE GetVehicleByPartnerId(int Id);
 
         T_VEHICLE AddVehicle(T_VEHICLE vehicle);
 

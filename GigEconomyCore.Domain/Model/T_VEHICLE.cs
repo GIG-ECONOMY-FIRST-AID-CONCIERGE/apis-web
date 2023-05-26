@@ -9,7 +9,7 @@ namespace GigEconomyCore.Domain.Model
         public string Model { get; set; }
         public string Manufacturer { get; set; }
         public string ManufactureYear { get; set; }
-        public string VehicleId { get; set; }
+        public int PartnerId { get; set; }
         public string Chassi { get; set; }
     }
 }

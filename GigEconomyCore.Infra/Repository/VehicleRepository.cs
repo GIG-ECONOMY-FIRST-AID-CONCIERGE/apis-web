@@ -24,7 +24,7 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_VEHICLE AddVehicle(T_VEHICLE vehicle)
         {
-            _context.T_Vehicle.Add(vehicle);
+            _context.T_Vehiclo.Add(vehicle);
             _context.SaveChanges();
             return vehicle;
         }
@@ -36,7 +36,11 @@ namespace GigEconomyCore.Infra.Repository
 
         public T_VEHICLE GetVehicleById(int Id)
         {
-            return _context.T_Vehicle.Where(p => p.Id == Id).FirstOrDefault();
+            return _context.T_Vehiclo.Where(p => p.Id == Id).FirstOrDefault();
+        }
+        public T_VEHICLE GetVehicleByPartnerId(int id)
+        {
+            return _context.T_Vehiclo.Where(p => p.PartnerId == id).FirstOrDefault();
         }
 
         public T_VEHICLE UpdateVehicle(T_VEHICLE vehicle)

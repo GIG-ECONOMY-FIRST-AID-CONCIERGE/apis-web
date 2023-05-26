@@ -12,6 +12,7 @@ namespace GigEconomyCore.Domain.Entity
         public int Id { get; set; }
         public Address Address { get; set; }
         public Partner Partner { get; set; }
+        public Vehicle Vehicle { get; set; }
         public List<Assistance> Assistances { get; set; }
         public AccidentStatus Status { get; set; }
         public string Description { get; set; }
