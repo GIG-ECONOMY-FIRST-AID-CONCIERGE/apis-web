@@ -125,6 +125,7 @@ namespace GigEconomyCore.Domain.Handler
             ac.Status = ac.Status;
             ac.OccurredDate = accident.OccurredDate;
             ac.RepliedNotification = accident.RepliedNotification;
+            ac.Description = accident.Description;
             accidents.Add(ac);
             
             return ac;
@@ -157,6 +158,7 @@ namespace GigEconomyCore.Domain.Handler
             tAccident.AddressId = tAddress.Id;
             tAccident.OccurredDate = DateTime.Now;
             tAccident.RepliedNotification = _accident.RepliedNotification;
+            tAccident.Description = _accident.Description;
             tAccident.Status = 1;
 
             tAccident = accidentRepository.AddAccident(tAccident);
@@ -228,7 +230,7 @@ namespace GigEconomyCore.Domain.Handler
             partner.Rg = tPartner.Rg;
             partner.Name = tPartner.Name;
             partner.BirthDate = tPartner.BirthDate;
-            //partner.Phone = tPartner.Phone;
+            partner.Phone = tPartner.Phone;
 
             return partner;
         }

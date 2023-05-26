@@ -14,7 +14,7 @@ namespace GigEconomyCore.Domain.Entity
         public Partner Partner { get; set; }
         public List<Assistance> Assistances { get; set; }
         public AccidentStatus Status { get; set; }
-
+        public string Description { get; set; }
         public DateTime OccurredDate { get; set; }
         public bool RepliedNotification { get; set; }
 
